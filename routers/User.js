@@ -9,6 +9,8 @@ router.post('/', controller.createUser)
 
 // router.put('/', controller)
 
-// router.delete('/', controller)
+router.delete('/', controller.deleteUser)
+
+router.patch('/', controller.updateUser)
 
 module.exports = router

@@ -6,6 +6,7 @@ class UserController {
     // получение всех данных
     User.findAll({ raw: true })
       .then((users) => {
+        res.status(200).send(users)
         console.log(users)
       })
       .catch((err) => console.log(err))
@@ -13,15 +14,60 @@ class UserController {
 
   createUser(req, res) {
     const name = req.body.name
+    const password = req.body.password
+    const age = req.body.age
+
     // создание пользователя
     User.create({
       name: name,
-      age: 35,
+      password: password,
+      age: age,
     })
-      .then((res) => {
-        console.log(res)
+      .then((dat) => {
+        res.status(200).send(dat)
+        console.log(dat)
       })
       .catch((err) => console.log(err))
+  }
+
+  deleteUser(req, res) {
+    const id = req.body.id
+    User.destroy({
+      where: {
+        id: id,
+      },
+    })
+      .then((del) => {
+        res.status(200).send(del)
+        console.log(del)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  updateUser(req, res) {
+    const id = req.body.id
+    const name = req.body.name
+    const age = req.body.age
+    const upAge = req.body.upAge
+    User.update(
+      { age: upAge },
+      {
+        where: {
+          id: id,
+          name: name,
+          age: age,
+        },
+      }
+    )
+      .then((up) => {
+        res.status(200).send(up)
+        console.log(up)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }
 

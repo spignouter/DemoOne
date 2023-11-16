@@ -6,9 +6,9 @@ const sequelize = new Sequelize('postgres', 'postgres', '', {
   logging: false,
 })
 
-const User = require('../models/User')(sequelize)
+const Models = require('../models/User')
 
 module.exports = {
   sequelize: sequelize,
-  user: User,
+  user: Models.user(sequelize),
 }
